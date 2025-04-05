@@ -8,7 +8,15 @@ export class CoursesService {
 
   constructor(private readonly prisma: PrismaService){}
   create(createCourseDto: CreateCourseDto) {
-    return 'This action adds a new course';
+    try{
+      return this.prisma.courses.create({
+        data: createCourseDto
+      });
+    }
+
+    catch(error){
+      return {statusCode: 500, message: error.message, error: error}
+    }
   }
 
   async findAll() {
