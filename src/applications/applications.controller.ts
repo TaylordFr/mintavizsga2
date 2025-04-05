@@ -31,4 +31,5 @@ export class ApplicationsController {
   remove(@Param('id') id: string) {
     return this.applicationsService.remove(+id);
   }
+
 }

@@ -1,10 +1,27 @@
 import { Injectable } from '@nestjs/common';
 import { CreateApplicationDto } from './dto/create-application.dto';
 import { UpdateApplicationDto } from './dto/update-application.dto';
+import { PrismaService } from 'src/prisma.service';
+
 
 @Injectable()
 export class ApplicationsService {
-  create(createApplicationDto: CreateApplicationDto) {
+  constructor(private readonly prisma: PrismaService){}
+
+  async create(createApplicationDto: CreateApplicationDto) {
+    try{
+      const application = this.prisma.applications.create({
+        data:{
+          courseId: createApplicationDto.courseId,
+          price: createApplicationDto.price
+        }
+      })
+
+      return application
+
+    } catch (error){
+      return {statusCode: 404, message: error.message, error: error}
+    }
     return 'This action adds a new application';
   }
 
