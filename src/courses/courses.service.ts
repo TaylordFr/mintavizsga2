@@ -7,11 +7,17 @@ import { PrismaService } from 'src/prisma.service';
 export class CoursesService {
 
   constructor(private readonly prisma: PrismaService){}
-  create(createCourseDto: CreateCourseDto) {
+  async create(createCourseDto: CreateCourseDto) {
     try{
-      return this.prisma.courses.create({
+      const newCourse = await this.prisma.courses.create({
         data: createCourseDto
       });
+
+
+      return {
+        ...newCourse,
+        id: newCourse.id.toString()
+      }
     }
 
     catch(error){

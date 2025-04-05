@@ -8,8 +8,14 @@ export class CoursesController {
   constructor(private readonly coursesService: CoursesService) {}
 
   @Post()
-  create(@Body() createCourseDto: CreateCourseDto) {
-    return this.coursesService.create(createCourseDto);
+  async create(@Body() createCourseDto: CreateCourseDto) {
+    const course = await this.coursesService.create(createCourseDto)
+
+    return {
+      statusCode: 201,
+      message: "Course added successfully!",
+      data: course
+    }
   }
 
   @Get()

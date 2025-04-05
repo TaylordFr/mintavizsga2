@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, IsDate, IsNumber, IsOptional} from 'class-validator'
+import { IsNotEmpty, IsString, IsDate, IsNumber, IsOptional, IsIn} from 'class-validator'
 
 export class CreateCourseDto {
   @IsNotEmpty()
@@ -7,6 +7,7 @@ export class CreateCourseDto {
 
   @IsNotEmpty()
   @IsString()
+  @IsIn(['solo', 'partner', 'group'], { message: 'Type must be either "solo", "partner", or "group"' })
 	type: string 
 	
   @IsNotEmpty()
